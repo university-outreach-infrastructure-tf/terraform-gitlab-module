@@ -12,6 +12,12 @@ variable "force_destroy_s3_bucket" {
 variable "name" {
   type        = "string"
   description = "A prefix to add to project resources"
+  default     = "gitlab"
+}
+
+variable "s3_buckets" {
+  type        = "list"
+  description = "List of all the s3 bucket user wants to create"
 }
 
 variable "dns_name" {

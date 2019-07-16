@@ -56,6 +56,6 @@ resource "aws_lb_listener" "gitlab_alb_https_listener" {
 
 resource "aws_lb_target_group_attachment" "gitlab_alb_tg_attachment" {
   target_group_arn = "${aws_lb_target_group.gitlab_alb_tg.arn}"
-  target_id        = "${module.data_node.id}"
-  port             = 8086
+  target_id        = "${aws_instance.gitlab_application.id}"
+  port             = 443
 }

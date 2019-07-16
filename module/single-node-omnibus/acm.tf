@@ -1,7 +1,6 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE ACM CERTIFICATE FOR INFLUXDB LOAD BALANCER
 # ---------------------------------------------------------------------------------------------------------------------
-
 resource "aws_acm_certificate" "gitlab_cert" {
   domain_name       = "${var.dns_name}"
   validation_method = "DNS"

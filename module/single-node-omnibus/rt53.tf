@@ -4,7 +4,7 @@
 resource "aws_route53_record" "cert_validation" {
   name    = "${aws_acm_certificate.gitlab_cert.domain_validation_options.0.resource_record_name}"
   type    = "${aws_acm_certificate.gitlab_cert.domain_validation_options.0.resource_record_type}"
-  zone_id = "${var.zone_id}"
+  zone_id = "${data.aws_route53_zone.selected.zone_id}"
   records = ["${aws_acm_certificate.gitlab_cert.domain_validation_options.0.resource_record_value}"]
   ttl     = 300
 }
@@ -13,7 +13,7 @@ resource "aws_route53_record" "cert_validation" {
 # CREATE DNS A RECORDS IN ROUTE 53 POINTING AT THE LOAD BALANCER
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_route53_record" "alb_dns" {
-  zone_id = "${var.zone_id}"
+  zone_id = "${data.aws_route53_zone.selected.zone_id}"
   name    = "${var.dns_name}"
   type    = "A"
   alias {

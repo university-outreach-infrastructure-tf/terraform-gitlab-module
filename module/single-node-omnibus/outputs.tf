@@ -1,10 +1,10 @@
 # -----------------------------------------------------------------------------------------------------------
 # S3 Outputs
 # -----------------------------------------------------------------------------------------------------------
-output "bucket_id" {
-  value = "${element(concat(aws_s3_bucket.gitlab_lfs_s3_bucket.*.id, list("")), 0)}"
+output "gitlab_lfs_s3_bucket_id" {
+  value = "${aws_s3_bucket.gitlab_s3_bucket.*.id}"
 }
 
-output "bucket_arn" {
-  value = "${element(concat(aws_s3_bucket.gitlab_lfs_s3_bucket.*.arn, list("")), 0)}"
+output "gitlab_lfs_s3_bucket_Arn" {
+  value = "${aws_s3_bucket.gitlab_s3_bucket.*.arn}"
 }
