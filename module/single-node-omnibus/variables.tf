@@ -1,5 +1,5 @@
 variable "tags" {
-  type        = "map"
+  type        = map
   description = "A map of tags to add to all resources"
   default     =  { Name = "Tf-Infra" }
 }
@@ -7,6 +7,30 @@ variable "tags" {
 variable "force_destroy_s3_bucket" {
   description = "A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable"
   default     =  false
+}
+
+variable "namespace" {
+  type        = string
+  description = "Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'"
+  default     = "nm"
+}
+
+variable "stage" {
+  type        = string
+  description = "Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'"
+  default     = "prod"
+}
+
+variable "attributes" {
+  type        = list
+  description = "Additional attributes (e.g. 1)"
+  default     = ["public", "private"]
+}
+
+variable "delimiter" {
+  type        = string
+  description = "Delimiter to be used between namespace, environment, stage, name and attributes"
+  default     = "_"
 }
 
 variable "name" {
@@ -83,4 +107,15 @@ variable "launch_config_key_name" {
 variable "zone_id" {
   description = "The ID of the hosted zone to contain this record."
   default = ""
+}
+
+variable "alias" {
+  type        = string
+  description = "The display name of the alias. The name must start with the word `alias` followed by a forward slash"
+  default     = "alias/gitlab-kms"
+}
+
+variable "enable_key_rotation" {
+  description = "Specifies whether key rotation is enabled"
+  default     = true
 }
