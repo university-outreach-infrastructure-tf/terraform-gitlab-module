@@ -12,7 +12,7 @@ variable "force_destroy_s3_bucket" {
 variable "namespace" {
   type        = string
   description = "Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'"
-  default     = "nm"
+  default     = "nm-capstone"
 }
 
 variable "stage" {
@@ -30,7 +30,7 @@ variable "attributes" {
 variable "delimiter" {
   type        = string
   description = "Delimiter to be used between namespace, environment, stage, name and attributes"
-  default     = "_"
+  default     = "-"
 }
 
 variable "name" {
