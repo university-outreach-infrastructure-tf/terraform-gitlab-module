@@ -15,6 +15,22 @@ data "aws_route53_zone" "zone_selected" {
   name         = "${var.dns_name}."
 }
 
+data "aws_ami" "centos" {
+  most_recent = true
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name   = "product-code"
+    values = ["aw0evgkw8e5c1q413zgy5pjce"]
+  }
+
+  owners = ["aws-marketplace"]
+}
+
 data "template_file" "gitlab_application_user_data" {
   template = "${file("${path.module}/single-node-omnibus/templates/gitlab_application_user_data.sh")}"
 

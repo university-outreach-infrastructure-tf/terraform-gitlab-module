@@ -67,4 +67,33 @@ resource "aws_security_group" "gitlab_alb" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group" "internal_gitlab" {
+  name_prefix = "${format("%s-%s-internal-gitlab-", module.gitlab_label.name, module.gitlab_label.stage)}"
+  description = "Security group to allow all inbound web traffic from Load balancer to gitlab application"
+  vpc_id      = "${var.vpc_id}"
+  tags        = "${module.gitlab_label.tags}"
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = "${aws_security_group.gitlab_alb.id}"
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
