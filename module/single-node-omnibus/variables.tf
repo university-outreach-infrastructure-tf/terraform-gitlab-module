@@ -1,9 +1,3 @@
-variable "tags" {
-  type        = map
-  description = "A map of tags to add to all resources"
-  default     =  { Name = "Tf-Infra" }
-}
-
 variable "force_destroy_s3_bucket" {
   description = "A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable"
   default     =  false
@@ -12,19 +6,19 @@ variable "force_destroy_s3_bucket" {
 variable "namespace" {
   type        = string
   description = "Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'"
-  default     = "nm-capstone"
+  default     = ""
 }
 
 variable "stage" {
   type        = string
   description = "Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'"
-  default     = "prod"
+  default     = ""
 }
 
 variable "attributes" {
   type        = list
   description = "Additional attributes (e.g. 1)"
-  default     = ["public", "private"]
+  default     = []
 }
 
 variable "delimiter" {
@@ -36,7 +30,7 @@ variable "delimiter" {
 variable "name" {
   type        = "string"
   description = "A prefix to add to project resources"
-  default     = "gitlab"
+  default     = ""
 }
 
 variable "s3_buckets" {
@@ -47,20 +41,24 @@ variable "s3_buckets" {
 variable "dns_name" {
   type        = "string"
   description = "A domain name for which the certificate should be issued"
+  default     = ""
 }
 
 variable "public_subnet_id" {
   type        = "list"
   description = "A list of public subnet IDs to attach"
+  default     = []
 }
 
 variable "private_subnet_id" {
   type        = "list"
   description = "A list of private subnet IDs to attach"
+  default     = []
 }
 
 variable "vpc_id" {
   description = "Id of the VPC Gitlab will be provisioned in."
+  default     = ""
 }
 
 variable "gitlab_data_disk_size" {
@@ -93,22 +91,15 @@ variable "gitlab_alb_ideal_timeout" {
   default = 60
 }
 
-variable "private_subnet_ids" {
-  type = "list"
-  description = "A list of subnet IDs to launch resources in."
-}
-
 variable "rotation_status" {
   default = "1"
 }
 
 variable "gitlab_application_ami" {
   description = "AMI of gitlab application to be used with Launch Configuration"
+  default     = ""
 }
 
-variable "launch_config_key_name" {
-  description = "The key name that should be used for the instance."
-}
 variable "zone_id" {
   description = "The ID of the hosted zone to contain this record."
   default = ""

@@ -66,15 +66,3 @@ resource "aws_iam_policy" "deny_put_acl" {
 }
 EOF
 }
-
-output "secret_key" {
-  value = "${aws_iam_access_key.access_key_1.*.secret}"
-}
-
-output "access_key" {
-  value = "${aws_iam_access_key.access_key_1.*.id}"
-}
-
-output "user_arn" {
-  value = "${aws_iam_user.s3_user.arn}"
-}
