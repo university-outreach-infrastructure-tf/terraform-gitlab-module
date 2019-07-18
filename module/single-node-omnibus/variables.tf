@@ -44,6 +44,13 @@ variable "dns_name" {
   default     = ""
 }
 
+
+variable "domain_name" {
+  type        = string
+  description = "ALB record53 entry domain name"
+  default     = ""
+}
+
 variable "public_subnet_id" {
   type        = list
   description = "A list of public subnet IDs to attach"
@@ -116,20 +123,8 @@ variable "enable_key_rotation" {
   default     = true
 }
 
-variable "public_key_path" {
+variable "ssh_key_name"{
   type = string
-  description = "Path to SSH public key directory"
-  default = ""
-}
-
-variable "private_key_extension" {
-  type = string
-  description = "Private key extension"
-  default = ""
-}
-
-variable "public_key_extension" {
-  type = string
-  description = "Public key extension"
+  description = "ssh key for ec2 ssh"
   default = ""
 }

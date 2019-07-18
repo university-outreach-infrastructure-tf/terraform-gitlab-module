@@ -64,15 +64,3 @@ output "route53_cert_validation" {
 output "route53_gitlab_alb" {
   value = "${module.gitlab.route53_gitlab_alb}"
 }
-
-output "ssh_key_private_key_name" {
-  value = "${module.gitlab.ssh_key_private_key_name}"
-}
-
-output "ssh_key_public_key_name" {
-  value = "${module.gitlab.ssh_key_public_key_name}"
-}
-
-output "ssh_key_public_key_value" {
-  value = "${module.gitlab.ssh_key_public_key_value}"
-}

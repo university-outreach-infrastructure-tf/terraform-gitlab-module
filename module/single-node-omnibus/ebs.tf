@@ -1,6 +1,6 @@
 resource "aws_ebs_volume" "gitlab_data" {
   size              = "${var.gitlab_data_disk_size}"
-  kms_key_id        = "${aws_kms_key.gitlab_kms_key.id}"
+  kms_key_id        = "${aws_kms_key.gitlab_kms_key.arn}"
   encrypted         = true
   type              = "gp2"
   availability_zone = "${data.aws_subnet.private_selected.availability_zone}"

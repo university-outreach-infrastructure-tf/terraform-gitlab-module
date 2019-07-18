@@ -64,15 +64,3 @@ output "route53_cert_validation" {
 output "route53_gitlab_alb" {
   value = "${aws_route53_record.alb_dns.fqdn}"
 }
-
-output "ssh_key_private_key_name" {
-  value = "${module.ssh_key_pair.private_key_filename}"
-}
-
-output "ssh_key_public_key_name" {
-  value = "${module.ssh_key_pair.public_key_filename}"
-}
-
-output "ssh_key_public_key_value" {
-  value = "${module.ssh_key_pair.public_key}"
-}

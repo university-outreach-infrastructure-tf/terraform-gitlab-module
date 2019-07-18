@@ -14,7 +14,7 @@ resource "aws_route53_record" "cert_validation" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_route53_record" "alb_dns" {
   zone_id = "${var.zone_id}"
-  name    = "${var.dns_name}"
+  name    = "${var.domain_name}"
   type    = "A"
   alias {
     name                   = "${aws_lb.gitlab_alb.dns_name}"
