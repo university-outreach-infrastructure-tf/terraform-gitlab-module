@@ -8,7 +8,7 @@ resource "aws_lb" "gitlab_alb" {
   internal           = true
   security_groups    = ["${aws_security_group.gitlab_alb.id}"]
   ip_address_type    = "ipv4"
-  subnets            = ["${var.public_subnet_id}"]
+  subnets            = "${var.public_subnet_id}"
   tags               = "${merge (module.gitlab_label.tags, map ("Role", "module.gitlab_label.name" ))}"
 }
 

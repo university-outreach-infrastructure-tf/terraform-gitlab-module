@@ -7,7 +7,7 @@ resource "aws_ebs_volume" "gitlab_data" {
   tags    = "${
   merge(
     map(
-      "Name", "${module.gitlab_label.name}-_data_disk_size${format("%02d", count.index + 1)}",
+      "Name", "${module.gitlab_label.name}-_data_disk_size",
       "Role", "${replace(module.gitlab_label.name, "-", "_")}_disk_size",
       "Type", "gitlab-data",
       "snapshot_policy", "${module.gitlab_label.name}-data Daily Snapshots"

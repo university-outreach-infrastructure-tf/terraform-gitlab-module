@@ -83,7 +83,7 @@ resource "aws_security_group" "internal_gitlab" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = "${aws_security_group.gitlab_alb.id}"
+    cidr_blocks = ["${aws_security_group.gitlab_alb.id}"]
   }
 
   egress {

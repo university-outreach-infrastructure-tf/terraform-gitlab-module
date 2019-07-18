@@ -2,8 +2,8 @@
 # Create LFS S3 bucket, More Info: https://docs.gitlab.com/ee/workflow/lfs/lfs_administration.html#s3-for-omnibus-installations
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 resource "aws_s3_bucket" "gitlab_s3_bucket" {
-  count         = length(var.s3_buckets)
-  bucket        = var.s3_buckets[count.index]
+  count         = "${length(var.s3_buckets)}"
+  bucket        = "${module.gitlab_label.id}-${element (var.s3_buckets, count.index)}"
   acl           = "private"
   force_destroy = "${var.force_destroy_s3_bucket}"
 
@@ -19,12 +19,5 @@ resource "aws_s3_bucket" "gitlab_s3_bucket" {
     enabled = true
   }
 
-  tags = "${merge(local.DEFAULT_TAGS, var.tags, map("Name", var.s3_buckets[count.index]))}"
-}
-
-locals {
-  DEFAULT_TAGS = {
-    "managed_by"       = "Terraform Capstone Project"
-    "terraform_module" = "s3"
-  }
+  tags = "${merge(module.gitlab_label.tags,  map("Bucket-Name", "${element (var.s3_buckets, count.index)}"))}"
 }

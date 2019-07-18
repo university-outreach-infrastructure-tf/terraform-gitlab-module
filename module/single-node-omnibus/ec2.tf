@@ -1,5 +1,4 @@
 resource "aws_instance" "gitlab_application" {
-  name            = "${var.name}-application"
   instance_type   = "m4.xlarge"
   subnet_id       = "${data.aws_subnet.private_selected.id}"
   security_groups = ["${aws_security_group.internal_ssh.id}", "${aws_security_group.internal_gitlab.id}"]

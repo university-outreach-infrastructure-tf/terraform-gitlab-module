@@ -4,7 +4,7 @@
 # MAKE FILE SYSTEM
 # ---------------------------------------------------------------------------------------------------------------------
 echo "Creating file system for gitlab data"
-sudo mkfs.xfs -f ${gitlab_data_disk}
+sudo mkfs.xfs -f /dev/xvdi
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE DIRECTORIES
@@ -16,7 +16,7 @@ sudo mkdir -p  /mnt/gitlab-data
 # MOUNT ATTACHED DISKS AND CHANGE OWNERSHIP TO GITLAB USER
 # ---------------------------------------------------------------------------------------------------------------------
 echo "Mounting EBS Volume for gitlab data directories"
-sudo mount ${gitlab_data_disk} /mnt/gitlab-data
+sudo mount /dev/xvdi /mnt/gitlab-data
 
 
 echo "Change ownership of mounted volumes to gitlab"

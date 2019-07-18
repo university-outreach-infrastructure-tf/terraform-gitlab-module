@@ -39,19 +39,19 @@ variable "s3_buckets" {
 }
 
 variable "dns_name" {
-  type        = "string"
+  type        = string
   description = "A domain name for which the certificate should be issued"
   default     = ""
 }
 
 variable "public_subnet_id" {
-  type        = "list"
+  type        = list
   description = "A list of public subnet IDs to attach"
   default     = []
 }
 
 variable "private_subnet_id" {
-  type        = "list"
+  type        = list
   description = "A list of private subnet IDs to attach"
   default     = []
 }
@@ -119,14 +119,17 @@ variable "enable_key_rotation" {
 variable "public_key_path" {
   type = string
   description = "Path to SSH public key directory"
+  default = ""
 }
 
 variable "private_key_extension" {
   type = string
   description = "Private key extension"
+  default = ""
 }
 
 variable "public_key_extension" {
   type = string
   description = "Public key extension"
+  default = ""
 }

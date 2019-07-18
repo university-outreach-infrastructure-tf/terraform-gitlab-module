@@ -10,11 +10,6 @@ data "aws_subnet" "public_selected" {
 # Use this data source to get the access to the effective Account ID, User ID, and ARN in which Terraform is authorized.
 data "aws_caller_identity" "current" {}
 
-# Use this data source to find a Hosted Zone ID given Hosted Zone name.
-data "aws_route53_zone" "zone_selected" {
-  name         = "${var.dns_name}."
-}
-
 data "aws_ami" "centos" {
   most_recent = true
 
@@ -32,9 +27,5 @@ data "aws_ami" "centos" {
 }
 
 data "template_file" "gitlab_application_user_data" {
-  template = "${file("${path.module}/single-node-omnibus/templates/gitlab_application_user_data.sh")}"
-
-  vars {
-    gitlab_data_disk = "${var.gitlab_data_disk_device_name}"
-  }
+  template = "${file("${path.module}/templates/gitlab_application_user_data.tpl")}"
 }
