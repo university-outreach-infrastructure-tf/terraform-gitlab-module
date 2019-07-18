@@ -17,7 +17,9 @@ module "gitlab" {
   dns_name = "${var.dns_name}"
   domain_name = "${var.domain_name}"
   zone_id = "${var.zone_id}"
-  ssh_key_name = "${var.ssh_key}"
+  private_key_extension = ".pem"
+  public_key_extension = ".pub"
+  public_key_path = "./secrets"
   gitlab_application_ami = "${var.gitlab_ami}"
 
 }

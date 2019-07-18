@@ -2,7 +2,7 @@ resource "aws_instance" "bastion" {
   instance_type   = "t2.micro"
   subnet_id       = "${data.aws_subnet.public_selected.id}"
   security_groups = ["${aws_security_group.external_ssh.id}"]
-  key_name        = "${var.ssh_key_name}"
+  key_name        = "${module.ssh_key_pair.key_name}"
   ami             = "${data.aws_ami.centos.id}"
   tags   = "${
   merge(
