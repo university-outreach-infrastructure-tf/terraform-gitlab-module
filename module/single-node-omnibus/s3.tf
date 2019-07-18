@@ -2,7 +2,7 @@
 # Create LFS S3 bucket, More Info: https://docs.gitlab.com/ee/workflow/lfs/lfs_administration.html#s3-for-omnibus-installations
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 resource "aws_s3_bucket" "gitlab_s3_bucket" {
-  count         =  length(var.s3_buckets)
+  count         = length(var.s3_buckets)
   bucket        = var.s3_buckets[count.index]
   acl           = "private"
   force_destroy = "${var.force_destroy_s3_bucket}"

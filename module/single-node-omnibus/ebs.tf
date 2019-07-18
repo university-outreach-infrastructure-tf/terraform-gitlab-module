@@ -3,8 +3,16 @@ resource "aws_ebs_volume" "gitlab_data" {
   kms_key_id        = "${aws_kms_key.gitlab_kms_key.id}"
   encrypted         = true
   type              = "gp2"
-  availability_zone = "${data.aws_subnet.selected.availability_zone}"
-  tags              = "${merge(map("Name", "${var.name}-_data_disk_size${format("%02d", count.index + 1)}"), map("Role", "${replace(var.name, "-", "_")}_disk_size"), map("Type", "gitlab-data"), map("snapshot_policy", "${var.name}-data Daily Snapshots"))}"
+  availability_zone = "${data.aws_subnet.private_selected.availability_zone}"
+  tags    = "${
+  merge(
+    map(
+      "Name", "${module.gitlab_label.name}-_data_disk_size${format("%02d", count.index + 1)}",
+      "Role", "${replace(module.gitlab_label.name, "-", "_")}_disk_size",
+      "Type", "gitlab-data",
+      "snapshot_policy", "${module.gitlab_label.name}-data Daily Snapshots"
+    )
+  )}"
 }
 
 resource "aws_volume_attachment" "gitlab_data_attachment" {
@@ -23,7 +31,7 @@ resource "aws_dlm_lifecycle_policy" "data" {
     resource_types = ["VOLUME"]
 
     schedule {
-      name = "${var.name}-data Daily Snapshots"
+      name = "${module.gitlab_label.name}-data Daily Snapshots"
 
       create_rule {
         interval      = "${var.snapshot_interval}"
@@ -36,7 +44,7 @@ resource "aws_dlm_lifecycle_policy" "data" {
       }
 
       tags_to_add = {
-        Snapshot_type = "${var.name}-data-daily-snapshot"
+        Snapshot_type = "${module.gitlab_label.name}-data-daily-snapshot"
       }
 
       copy_tags = true

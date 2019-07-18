@@ -1,4 +1,4 @@
-module "label" {
+module "gitlab_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.14.1"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"

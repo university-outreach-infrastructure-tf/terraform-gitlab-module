@@ -49,9 +49,14 @@ variable "dns_name" {
   description = "A domain name for which the certificate should be issued"
 }
 
-variable "subnet_id" {
+variable "public_subnet_id" {
   type        = "list"
-  description = "A list of subnet IDs to attach to the LB"
+  description = "A list of public subnet IDs to attach"
+}
+
+variable "private_subnet_id" {
+  type        = "list"
+  description = "A list of private subnet IDs to attach"
 }
 
 variable "vpc_id" {
@@ -118,4 +123,19 @@ variable "alias" {
 variable "enable_key_rotation" {
   description = "Specifies whether key rotation is enabled"
   default     = true
+}
+
+variable "public_key_path" {
+  type = string
+  description = "Path to SSH public key directory"
+}
+
+variable "private_key_extension" {
+  type = string
+  description = "Private key extension"
+}
+
+variable "public_key_extension" {
+  type = string
+  description = "Public key extension"
 }
