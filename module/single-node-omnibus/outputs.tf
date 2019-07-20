@@ -64,3 +64,11 @@ output "route53_cert_validation" {
 output "route53_gitlab_alb" {
   value = "${aws_route53_record.alb_dns.fqdn}"
 }
+
+output "bastion_public_eip" {
+  value = "${aws_eip.bastion.public_ip}"
+}
+
+output "bastion_public_ip" {
+  value = "${aws_instance.bastion.public_ip}"
+}

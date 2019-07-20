@@ -12,3 +12,16 @@ resource "aws_instance" "bastion" {
     )
   )}"
 }
+
+resource "aws_eip" "bastion" {
+  instance = "${aws_instance.bastion.id}"
+  vpc      = true
+
+  tags   = "${
+  merge(
+    map(
+       "Name", "${module.gitlab_label.name}-bastion-eip",
+       "Role", "${replace(module.gitlab_label.name, "-", "_")}"
+    )
+  )}"
+}
