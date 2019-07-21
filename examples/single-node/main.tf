@@ -19,7 +19,6 @@ module "gitlab" {
   private_key_extension             = ".pem"
   public_key_extension              = ".pub"
   public_key_path                   = "./secrets"
-  ssm_path_prefix                   = "gitlab-ssh-keys"
   gitlab_application_ami            = var.gitlab_ami
   gitlab_artifactory_s3_bucket_name = "gitlab-artifactory"
   gitlab_lfs_s3_bucket_name         = "gitlab-lfs"
