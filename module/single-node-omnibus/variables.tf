@@ -33,9 +33,34 @@ variable "name" {
   default     = ""
 }
 
-variable "s3_buckets" {
-  type        = "list"
-  description = "List of all the s3 bucket user wants to create"
+variable "gitlab_artifactory_s3_bucket_name" {
+  type        = string
+  description = "Name of Gitlab Artifactory S3 bucket"
+  default     = ""
+}
+
+variable "gitlab_lfs_s3_bucket_name" {
+  type        = string
+  description = "Name of Gitlab Artifactory S3 bucket"
+  default     = ""
+}
+
+variable "gitlab_packages_s3_bucket_name" {
+  type        = string
+  description = "Name of Gitlab Artifactory S3 bucket"
+  default     = ""
+}
+
+variable "gitlab_registry_s3_bucket_name" {
+  type        = string
+  description = "Name of Gitlab Artifactory S3 bucket"
+  default     = ""
+}
+
+variable "contact_email"{
+  type        = string
+  description = "Contact email address"
+  default     = ""
 }
 
 variable "dns_name" {
@@ -43,7 +68,6 @@ variable "dns_name" {
   description = "A domain name for which the certificate should be issued"
   default     = ""
 }
-
 
 variable "domain_name" {
   type        = string
@@ -78,6 +102,10 @@ variable "gitlab_data_disk_device_name" {
   default  = "/dev/xvdi"
 }
 
+variable "git_data_directory" {
+  default  = "/mnt/gitlab-data"
+}
+
 variable "snapshot_interval" {
   description = "How often this lifecycle policy should be evaluated. 2,3,4,6,8,12 or 24 are valid values. Default 24"
   default = "24"
@@ -109,7 +137,7 @@ variable "gitlab_application_ami" {
 
 variable "zone_id" {
   description = "The ID of the hosted zone to contain this record."
-  default = ""
+  default     = ""
 }
 
 variable "alias" {
@@ -124,15 +152,15 @@ variable "enable_key_rotation" {
 }
 
 variable "public_key_path" {
-  type = string
+  type        = string
   description = "Path to SSH public key directory"
-  default = ""
+  default     = ""
 }
 
 variable "private_key_extension" {
-  type = string
+  type        = string
   description = "Private key extension"
-  default = ""
+  default     = ""
 }
 
 variable "public_key_extension" {
@@ -142,7 +170,19 @@ variable "public_key_extension" {
 }
 
 variable "ssh_key_name"{
-  type = string
+  type        = string
   description = "ssh key for ec2 ssh"
-  default = ""
+  default     = ""
+}
+
+variable "ssm_path_prefix"{
+  type        = string
+  description = "The SSM parameter path prefix (e.g. /$ssm_path_prefix/$key_name)"
+  default     = ""
+}
+
+variable "ssm_path_format"{
+  type        = string
+  description = "SSM path format"
+  default     = ""
 }

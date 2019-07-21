@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# CREATE AN APPLICATION LOAD BALANCER FOR INFLUXDB
+# CREATE AN APPLICATION LOAD BALANCER FOR GITLAB
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_lb" "gitlab_alb" {
@@ -9,7 +9,7 @@ resource "aws_lb" "gitlab_alb" {
   security_groups    = ["${aws_security_group.gitlab_alb.id}"]
   ip_address_type    = "ipv4"
   subnets            = "${var.public_subnet_id}"
-  tags               = "${merge (module.gitlab_label.tags, map ("Role", "module.gitlab_label.name" ))}"
+  tags               = "${merge (module.gitlab_label.tags, map ("Role", module.gitlab_label.name ))}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ resource "aws_lb_target_group" "gitlab_alb_tg" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# CREATE HTTP LISTENERS FOR INFLUXDB ALB
+# CREATE HTTP LISTENERS FOR GITLAB ALB
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_lb_listener" "gitlab_alb_https_listener" {
@@ -51,7 +51,7 @@ resource "aws_lb_listener" "gitlab_alb_https_listener" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# ATTACH THE INFLUXDB INSTANCE TO THE LOAD BALANCER
+# ATTACH THE GITLAB INSTANCE TO THE LOAD BALANCER
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_lb_target_group_attachment" "gitlab_alb_tg_attachment" {

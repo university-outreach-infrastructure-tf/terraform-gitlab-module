@@ -16,8 +16,7 @@ resource "aws_iam_user_policy_attachment" "deny_put_acl" {
 }
 
 
-resource "aws_iam_access_key" "access_key_1" {
-  count = "${var.rotation_status == "1" || var.rotation_status == "rotate" ? 1 : 0}"
+resource "aws_iam_access_key" "s3_access_key" {
   user  = "${aws_iam_user.s3_user.name}"
 }
 

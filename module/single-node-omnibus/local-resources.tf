@@ -28,4 +28,26 @@ data "aws_ami" "centos" {
 
 data "template_file" "gitlab_application_user_data" {
   template = "${file("${path.module}/templates/gitlab_application_user_data.tpl")}"
+
+  vars = {
+    git_data_disk              = "${var.gitlab_data_disk_device_name}"
+    git_data_disk_mount_point  = "${var.git_data_directory}"
+    s3_bucket_name             = "${var.gitlab_artifactory_s3_bucket_name}"
+    s3_bucket_provider         = "AWS"
+    s3_bucket_region           = "us-east-1"
+    s3_bucket_user_access_key  = "${aws_iam_access_key.s3_access_key.0.id}"
+    s3_bucket_user_secret_key  = "${aws_iam_access_key.s3_access_key.0.secret}"
+    contact_email              = "${var.contact_email}"
+    artifactory_s3_bucket_name = "${var.gitlab_artifactory_s3_bucket_name}"
+    lfs_s3_bucket_name         = "${var.gitlab_lfs_s3_bucket_name}"
+    packages_s3_bucket_name    = "${var.gitlab_packages_s3_bucket_name}"
+    registry_s3_bucket_name    = "${var.gitlab_registry_s3_bucket_name}"
+  }
+}
+
+data "template_cloudinit_config" "config" {
+  part {
+    content_type = "text/cloud-config"
+    content      = "${data.template_file.gitlab_application_user_data.rendered}"
+  }
 }

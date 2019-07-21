@@ -1,9 +1,8 @@
 # ---------------------------------------------------------------------------------------------------------------------------------------------
-# Create LFS S3 bucket, More Info: https://docs.gitlab.com/ee/workflow/lfs/lfs_administration.html#s3-for-omnibus-installations
+# Create Artifactory S3 bucket
 # ---------------------------------------------------------------------------------------------------------------------------------------------
-resource "aws_s3_bucket" "gitlab_s3_bucket" {
-  count         = "${length(var.s3_buckets)}"
-  bucket        = "${module.gitlab_label.id}-${element (var.s3_buckets, count.index)}"
+resource "aws_s3_bucket" "gitlab_artifactory_s3_bucket" {
+  bucket        = "${module.gitlab_label.id}-${var.gitlab_artifactory_s3_bucket_name}"
   acl           = "private"
   force_destroy = "${var.force_destroy_s3_bucket}"
 
@@ -19,5 +18,74 @@ resource "aws_s3_bucket" "gitlab_s3_bucket" {
     enabled = true
   }
 
-  tags = "${merge(module.gitlab_label.tags,  map("Bucket-Name", "${element (var.s3_buckets, count.index)}"))}"
+  tags = "${merge(module.gitlab_label.tags,  map("Bucket-Name", "${module.gitlab_label.id}-${var.gitlab_artifactory_s3_bucket_name}"))}"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------
+# Create LFS S3 bucket
+# ---------------------------------------------------------------------------------------------------------------------------------------------
+resource "aws_s3_bucket" "gitlab_lfs_s3_bucket" {
+  bucket        = "${module.gitlab_label.id}-${var.gitlab_lfs_s3_bucket_name}"
+  acl           = "private"
+  force_destroy = "${var.force_destroy_s3_bucket}"
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
+  versioning {
+    enabled = true
+  }
+
+  tags = "${merge(module.gitlab_label.tags,  map("Bucket-Name", "${module.gitlab_label.id}-${var.gitlab_lfs_s3_bucket_name}"))}"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------
+# Create Packages S3 bucket
+# ---------------------------------------------------------------------------------------------------------------------------------------------
+resource "aws_s3_bucket" "gitlab_packages_s3_bucket" {
+  bucket        = "${module.gitlab_label.id}-${var.gitlab_packages_s3_bucket_name}"
+  acl           = "private"
+  force_destroy = "${var.force_destroy_s3_bucket}"
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
+  versioning {
+    enabled = true
+  }
+
+  tags = "${merge(module.gitlab_label.tags,  map("Bucket-Name", "${module.gitlab_label.id}-${var.gitlab_packages_s3_bucket_name}"))}"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------
+# Create Registry S3 bucket
+# ---------------------------------------------------------------------------------------------------------------------------------------------
+resource "aws_s3_bucket" "gitlab_registry_s3_bucket" {
+  bucket        = "${module.gitlab_label.id}-${var.gitlab_registry_s3_bucket_name}"
+  acl           = "private"
+  force_destroy = "${var.force_destroy_s3_bucket}"
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
+  versioning {
+    enabled = true
+  }
+
+  tags = "${merge(module.gitlab_label.tags,  map("Bucket-Name", "${module.gitlab_label.id}-${var.gitlab_registry_s3_bucket_name}"))}"
 }

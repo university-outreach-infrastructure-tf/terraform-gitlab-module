@@ -1,20 +1,44 @@
 # -----------------------------------------------------------------------------------------------------------
 # S3 Outputs
 # -----------------------------------------------------------------------------------------------------------
+output "gitlab_artifactory_s3_bucket_id" {
+  value = "${aws_s3_bucket.gitlab_artifactory_s3_bucket.id}"
+}
+
+output "gitlab_artifactory_s3_bucket_arn" {
+  value = "${aws_s3_bucket.gitlab_artifactory_s3_bucket.arn}"
+}
+
+output "gitlab_registry_s3_bucket_id" {
+  value = "${aws_s3_bucket.gitlab_registry_s3_bucket.id}"
+}
+
+output "gitlab_registry_s3_bucket_arn" {
+  value = "${aws_s3_bucket.gitlab_registry_s3_bucket.arn}"
+}
+
+output "gitlab_packages_s3_bucket_id" {
+  value = "${aws_s3_bucket.gitlab_packages_s3_bucket.id}"
+}
+
+output "gitlab_packages_s3_bucket_arn" {
+  value = "${aws_s3_bucket.gitlab_packages_s3_bucket.arn}"
+}
+
 output "gitlab_lfs_s3_bucket_id" {
-  value = "${aws_s3_bucket.gitlab_s3_bucket.*.id}"
+  value = "${aws_s3_bucket.gitlab_lfs_s3_bucket.id}"
 }
 
 output "gitlab_lfs_s3_bucket_arn" {
-  value = "${aws_s3_bucket.gitlab_s3_bucket.*.arn}"
+  value = "${aws_s3_bucket.gitlab_lfs_s3_bucket.arn}"
 }
 
-output "secret_key" {
-  value = "${aws_iam_access_key.access_key_1.*.secret}"
+output "s3_secret_key" {
+  value = "${aws_iam_access_key.s3_access_key.secret}"
 }
 
-output "access_key" {
-  value = "${aws_iam_access_key.access_key_1.*.id}"
+output "s3_access_key" {
+  value = "${aws_iam_access_key.s3_access_key.id}"
 }
 
 output "user_arn" {
@@ -69,6 +93,6 @@ output "bastion_public_eip" {
   value = "${aws_eip.bastion.public_ip}"
 }
 
-output "bastion_public_ip" {
-  value = "${aws_instance.bastion.public_ip}"
+output "gitlab_private_ip" {
+  value = "${aws_instance.gitlab_application.private_ip}"
 }
