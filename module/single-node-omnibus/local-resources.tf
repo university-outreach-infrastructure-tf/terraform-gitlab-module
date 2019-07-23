@@ -26,6 +26,7 @@ data "aws_ami" "centos" {
   owners = ["aws-marketplace"]
 }
 
+
 data "template_file" "gitlab_application_user_data" {
   template = "${file("${path.module}/templates/gitlab_application_user_data.tpl")}"
 
@@ -42,6 +43,7 @@ data "template_file" "gitlab_application_user_data" {
     lfs_s3_bucket_name         = "${var.gitlab_lfs_s3_bucket_name}"
     packages_s3_bucket_name    = "${var.gitlab_packages_s3_bucket_name}"
     registry_s3_bucket_name    = "${var.gitlab_registry_s3_bucket_name}"
+    domain_name                = "${var.domain_name}"
   }
 }
 

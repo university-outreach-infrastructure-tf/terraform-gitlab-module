@@ -2,15 +2,17 @@
 runcmd:
     - [ mkfs.xfs, ${git_data_disk} ]
     - [ mkdir, ${git_data_disk_mount_point} ]
-    - echo "####! External_Url" >> /etc/gitlab/gitlab.rb
-    - HOSTNAME = $(curl http://169.254.169.254/latest/meta-data/local-hostname)
-    - echo "external_url 'https://$HOSTNAME'" >> /etc/gitlab/gitlab.rb
-    - echo "mattermost_external_url 'http://mattermost.$HOSTNAME'" >> /etc/gitlab/gitlab.rb
-    - echo "registry_external_url 'http://registry.$HOSTNAME'" >> /etc/gitlab/gitlab.rb
 mounts:
     - [ ${git_data_disk}, ${git_data_disk_mount_point}]
 write_files:
     - content: |
+        ####! External_Url
+        external_url 'https://${domain_name}'
+        ####! GitLab NGINX
+        ####! Docs: https://docs.gitlab.com/omnibus/settings/nginx.html
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+        nginx['proxy_set_headers'] = {"X-Forwarded-Proto" => "https","X-Forwarded-Ssl" => "on"}
         ####! Job artifacts Object Store
         ####! Docs: https://docs.gitlab.com/ee/administration/job_artifacts.html#using-object-storage
         gitlab_rails['artifacts_enabled'] = true
@@ -23,15 +25,6 @@ write_files:
         gitlab_rails['lfs_object_store_enabled'] = false
         gitlab_rails['lfs_object_store_remote_directory'] = "${lfs_s3_bucket_name}"
         gitlab_rails['lfs_object_store_connection'] = {'provider' => '${s3_bucket_provider}', 'region' => '${s3_bucket_region}', 'aws_access_key_id' => '${s3_bucket_user_access_key}','aws_secret_access_key' => '${s3_bucket_user_secret_key}'}
-        ####! Let's Encrypt integration
-        ####! https://docs.gitlab.com/omnibus/settings/ssl.html#lets-encrypthttpsletsencryptorg-integration
-        letsencrypt['enable'] = true
-        letsencrypt['contact_emails'] = ["${contact_email}"]
-        ####! See http://docs.gitlab.com/omnibus/settings/ssl.html#automatic-renewal for more on these sesttings
-        letsencrypt['auto_renew'] = true
-        letsencrypt['auto_renew_hour'] = 12
-        letsencrypt['auto_renew_minute'] = 30  # Should be a number or cron expression, if specified.
-        letsencrypt['auto_renew_day_of_month'] = "*/4"
         ####! Package repository
         ####! Docs: https://docs.gitlab.com/ee/administration/maven_packages.md
         gitlab_rails['packages_enabled'] = true

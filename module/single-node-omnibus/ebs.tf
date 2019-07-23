@@ -7,10 +7,9 @@ resource "aws_ebs_volume" "gitlab_data" {
   tags    = "${
   merge(
     map(
-      "Name", "${module.gitlab_label.name}-_data_disk_size",
-      "Role", "${replace(module.gitlab_label.name, "-", "_")}_disk_size",
+      "Name", "${module.gitlab_label.name}_data_disk",
       "Type", "gitlab-data",
-      "snapshot_policy", "${module.gitlab_label.name}-data Daily Snapshots"
+      "snapshot_policy", "${module.gitlab_label.name}-data daily snapshots"
     )
   )}"
 }
@@ -31,7 +30,7 @@ resource "aws_dlm_lifecycle_policy" "data" {
     resource_types = ["VOLUME"]
 
     schedule {
-      name = "${module.gitlab_label.name}-data Daily Snapshots"
+      name = "${module.gitlab_label.name}-data daily snapshots"
 
       create_rule {
         interval      = "${var.snapshot_interval}"

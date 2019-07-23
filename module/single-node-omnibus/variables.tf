@@ -75,6 +75,12 @@ variable "domain_name" {
   default     = ""
 }
 
+variable "gitlab_domain_name"{
+  type        = string
+  description = "Gitlab ec2 instance record53 entry domain name"
+  default     = ""
+}
+
 variable "public_subnet_id" {
   type        = list
   description = "A list of public subnet IDs to attach"
@@ -182,6 +188,42 @@ variable "ssm_path_prefix"{
 }
 
 variable "ssm_path_format"{
+  type        = string
+  description = "SSM path format"
+  default     = ""
+}
+
+variable "ssl_cert_country"{
+  type        = string
+  description = "SSM path format"
+  default     = ""
+}
+
+variable "ssl_cert_state" {
+  type        = string
+  description = "SSM path format"
+  default     = ""
+}
+
+variable "ssl_cert_locality" {
+  type        = string
+  description = "SSM path format"
+  default     = ""
+}
+
+variable "ssl_cert_org" {
+  type        = string
+  description = "SSM path format"
+  default     = ""
+}
+
+variable "ssl_cert_org_unit" {
+  type        = string
+  description = "SSM path format"
+  default     = ""
+}
+
+variable "ssl_cert_email" {
   type        = string
   description = "SSM path format"
   default     = ""

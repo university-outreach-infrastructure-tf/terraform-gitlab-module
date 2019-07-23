@@ -15,6 +15,7 @@ module "gitlab" {
   public_subnet_id                  = var.public_subnet_id
   dns_name                          = var.dns_name
   domain_name                       = var.domain_name
+  gitlab_domain_name                = var.gitlab_domain_name
   zone_id                           = var.zone_id
   private_key_extension             = ".pem"
   public_key_extension              = ".pub"
