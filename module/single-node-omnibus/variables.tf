@@ -75,12 +75,6 @@ variable "domain_name" {
   default     = ""
 }
 
-variable "gitlab_domain_name"{
-  type        = string
-  description = "Gitlab ec2 instance record53 entry domain name"
-  default     = ""
-}
-
 variable "public_subnet_id" {
   type        = list
   description = "A list of public subnet IDs to attach"
@@ -226,5 +220,10 @@ variable "ssl_cert_org_unit" {
 variable "ssl_cert_email" {
   type        = string
   description = "SSM path format"
+  default     = ""
+}
+
+variable "gitlab_application_comman_name" {
+  type        = string
   default     = ""
 }

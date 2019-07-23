@@ -1,7 +1,15 @@
 #cloud-config
 runcmd:
-    - [ mkfs.xfs, ${git_data_disk} ]
-    - [ mkdir, ${git_data_disk_mount_point} ]
+    - sudo mkfs -t xfs ${git_data_disk}
+    - sudo mkdir ${git_data_disk_mount_point}
+    - sudo mkdir /etc/gitlab/ssl
+    - sudo chmod 700 /etc/gitlab/ssl
+    - openssl genrsa -des3 -passout pass:$password -out /etc/gitlab/ssl/${gitlab_application_comman_name}.key 2048 -noout
+    - openssl rsa -in /etc/gitlab/ssl/${gitlab_application_comman_name}.key -passin pass:$password -out /etc/gitlab/ssl/${gitlab_application_comman_name}.key
+    - openssl req -new -key /etc/gitlab/ssl/${gitlab_application_comman_name}.key -out /etc/gitlab/ssl/${gitlab_application_comman_name}.csr -passin pass:$password -subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$gitlab_application_comman_name/emailAddress=$email"
+    - openssl x509 -req -days 365 -in /etc/gitlab/ssl/${gitlab_application_comman_name}.csr -signkey /etc/gitlab/ssl/${gitlab_application_comman_name}.key -out /etc/gitlab/ssl/${gitlab_application_comman_name}.crt
+    - sudo rm -rf /etc/gitlab/ssl/${gitlab_application_comman_name}.csr
+    - sudo chmod 0400 /etc/gitlab/ssl/${gitlab_application_comman_name}.*
 mounts:
     - [ ${git_data_disk}, ${git_data_disk_mount_point}]
 write_files:
@@ -10,9 +18,9 @@ write_files:
         external_url 'https://${domain_name}'
         ####! GitLab NGINX
         ####! Docs: https://docs.gitlab.com/omnibus/settings/nginx.html
-        nginx['listen_port'] = 80
-        nginx['listen_https'] = false
-        nginx['proxy_set_headers'] = {"X-Forwarded-Proto" => "https","X-Forwarded-Ssl" => "on"}
+        nginx['redirect_http_to_https'] = true
+        nginx['ssl_certificate'] = "/etc/gitlab/ssl/${gitlab_application_comman_name}.crt"
+        nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/${gitlab_application_comman_name}.key"
         ####! Job artifacts Object Store
         ####! Docs: https://docs.gitlab.com/ee/administration/job_artifacts.html#using-object-storage
         gitlab_rails['artifacts_enabled'] = true
@@ -37,6 +45,9 @@ write_files:
         ####! Container Registry settings
         ####! Docs: https://docs.gitlab.com/ce/administration/container_registry.html
         registry['storage'] = {'s3' => {'accesskey' => '${s3_bucket_user_access_key}','secretkey' => '${s3_bucket_user_secret_key}','region' => '${s3_bucket_region}','bucket' => '${registry_s3_bucket_name}'}}
+        ####! For setting up different data storing directory
+        ####! Docs: https://docs.gitlab.com/omnibus/settings/configuration.html#storing-git-data-in-an-alternative-directory
+        git_data_dirs({'default' => { 'path' => '${git_data_disk_mount_point}'}})
       path: /etc/gitlab/gitlab.rb
       permissions: '0600'
 runcmd:

@@ -27,6 +27,24 @@ variable "zone_id" {
 variable "gitlab_ami" {
 }
 
-variable "ssh_key" {
+variable "ssl_cert_country" {
+}
+
+variable "ssl_cert_state" {
+}
+
+variable "ssl_cert_locality" {
+}
+
+variable "ssl_cert_org" {
+}
+
+variable "ssl_cert_org_unit" {
+}
+
+variable "ssl_cert_email" {
+}
+
+variable "gitlab_application_comman_name" {
 }
 
