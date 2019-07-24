@@ -41,19 +41,19 @@ variable "gitlab_artifactory_s3_bucket_name" {
 
 variable "gitlab_lfs_s3_bucket_name" {
   type        = string
-  description = "Name of Gitlab Artifactory S3 bucket"
+  description = "Name of Gitlab LFS S3 bucket"
   default     = ""
 }
 
 variable "gitlab_packages_s3_bucket_name" {
   type        = string
-  description = "Name of Gitlab Artifactory S3 bucket"
+  description = "Name of Gitlab Packages S3 bucket"
   default     = ""
 }
 
 variable "gitlab_registry_s3_bucket_name" {
   type        = string
-  description = "Name of Gitlab Artifactory S3 bucket"
+  description = "Name of Gitlab Registry S3 bucket"
   default     = ""
 }
 
@@ -82,55 +82,64 @@ variable "private_subnet_id" {
 }
 
 variable "vpc_id" {
+  type        = string
   description = "Id of the VPC Gitlab will be provisioned in."
   default     = ""
 }
 
 variable "gitlab_data_disk_size" {
-  description = "The size of the wal disks to provision"
-  default = 100
+  description = "The size of gitlab data disk to provision"
+  default     = 100
 }
 
 variable "gitlab_data_disk_device_name" {
-  description = "The name of the meta device"
-  default  = "/dev/xvdi"
+  type        = string
+  description = "The name gitlab data disk"
+  default     = "/dev/xvdi"
 }
 
 variable "git_data_directory" {
+  type     = string
   default  = "/mnt/gitlab-data"
 }
 
 variable "snapshot_interval" {
+  type        = string
   description = "How often this lifecycle policy should be evaluated. 2,3,4,6,8,12 or 24 are valid values. Default 24"
-  default = "24"
+  default     = "24"
 }
 
 variable "snapshot_start_time" {
+  type        = string
   description = "A list of times in 24 hour clock format that sets when the lifecycle policy should be evaluated."
-  default = "00:00"
+  default     = "00:00"
 }
 
 variable "retain_rule" {
   description = "How many snapshots to keep. Must be an integer between 1 and 1000."
-  default = "3"
+  default     = 10
 }
 
 variable "gitlab_alb_ideal_timeout" {
   description = "The time in seconds that the connection is allowed to be idle."
-  default = 60
+  default     = 60
 }
 
 variable "rotation_status" {
-  default = "1"
+  type        = string
+  description = "Rotation status for S3 IAM user, 0 or 1"
+  default     = "1"
 }
 
 variable "gitlab_application_ami" {
-  description = "AMI of gitlab application to be used with Launch Configuration"
+  type        = string
+  description = "AMI of gitlab application to be used with Gitlab instance. AMI can be build using Packer like: https://github.com/university-outreach-infrastructure-tf/gitlab-packer-ami"
   default     = ""
 }
 
 variable "zone_id" {
-  description = "The ID of the hosted zone to contain this record."
+  type        = string
+  description = "The ID of the hosted zone to contain Route53 record."
   default     = ""
 }
 
@@ -147,6 +156,6 @@ variable "enable_key_rotation" {
 
 variable "ssh_key_name"{
   type        = string
-  description = "ssh key for ec2 ssh"
+  description = "SSH key for ec2 ssh"
   default     = ""
 }

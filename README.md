@@ -36,27 +36,46 @@ module "gitlab" {
       dns_name                          = var.dns_name
       domain_name                       = var.domain_name
       zone_id                           = var.zone_id
-      private_key_extension             = ".pem"
-      public_key_extension              = ".pub"
-      public_key_path                   = "./secrets"
+      ssh_key_name                      = var.ssh_key_name
       gitlab_application_ami            = var.gitlab_ami
-      gitlab_artifactory_s3_bucket_name = "gitlab-artifactory"
-      gitlab_lfs_s3_bucket_name         = "gitlab-lfs"
-      gitlab_packages_s3_bucket_name    = "gitlab-packages"
-      gitlab_registry_s3_bucket_name    = "gitlab-registry"
-      contact_email                     = "abhimanyunarwal@northwesternmutual.com"
+      gitlab_artifactory_s3_bucket_name = var.gitlab_artifactory_s3_bucket_name
+      gitlab_lfs_s3_bucket_name         = var.gitlab_lfs_s3_bucket_name
+      gitlab_packages_s3_bucket_name    = var.gitlab_packages_s3_bucket_name
+      gitlab_registry_s3_bucket_name    = var.gitlab_registry_s3_bucket_name
 }
 ```
 
 ## INPUT VALUES
 
-| Input             | Description                                                                    | Type    | Default | Required |
-| ------------------| -------------------------------------------------------------------------------| --------|---------|----------|
-| namespace         | Namespace, which could be your organization name or abbreviation"              |`string` | ""      | yes      |
-| stage             | Stage, e.g. 'prod', 'staging', 'dev'                                           |`string` | ""      | yes      |
-| name              | Solution name, e.g. 'app' or 'jenkins'                                         |`string` | ""      | yes      |
-| attributes        | Additional attributes                                                          |`list`   | `<list>`| no       |           
-| delimiter         | Delimiter to be used between namespace, environment, stage, name and attributes|`string` | "-"     | no       |
+| Input                             | Description                                                                                                               | Type    | Default            | Required |
+| ----------------------------------| --------------------------------------------------------------------------------------------------------------------------| --------|--------------------|----------|
+| namespace                         | Namespace, which could be your organization name or abbreviation"                                                         |`string` | ""                 | yes      |
+| stage                             | Stage, e.g. 'prod', 'staging', 'dev'                                                                                      |`string` | ""                 | yes      |
+| name                              | Solution name, e.g. 'app' or 'jenkins'                                                                                    |`string` | ""                 | yes      |
+| attributes                        | Additional attributes                                                                                                     |`list`   | `<list>`           | no       |           
+| delimiter                         | Delimiter to be used between namespace, environment, stage, name and attributes                                           |`string` | "-"                | no       |
+| force_destroy_s3_bucket           | Boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error.   | `bool`  | `false`            | no       |
+| gitlab_artifactory_s3_bucket_name | Name of Gitlab Artifactory S3 bucket                                                                                      | `string`| ""                 | yes      |
+| gitlab_lfs_s3_bucket_name         | Name of Gitlab LFS S3 bucket                                                                                              | `string`| ""                 | yes      |
+| gitlab_packages_s3_bucket_name    | Name of Gitlab Packages S3 bucket                                                                                         | `string`| ""                 | yes      |
+| gitlab_registry_s3_bucket_name    | Name of Gitlab Registry S3 bucket                                                                                         | `string`| ""                 | yes      |
+| dns_name                          | Domain name for which the certificate should be issued                                                                    | `string`| ""                 | yes      |
+| domain_name                       | ALB record53 entry domain name                                                                                            | `string`| ""                 | yes      |
+| public_subnet_id                  | List of public subnet IDs to attach                                                                                       | `list`  | `<list>`           | yes      |
+| private_subnet_id                 | List of private subnet IDs to attach                                                                                      | `list`  | `<list>`           | yes      |
+| vpc_id                            | Id of the VPC Gitlab will be provisioned in                                                                               | `string`| ""                 | yes      |
+| gitlab_data_disk_size             | Size of gitlab data disk to provision                                                                                     | `number`| `100`              | no       |
+| gitlab_data_disk_device_name      | Name of gitlab data disk                                                                                                  | `string`| `/dev/xvdi`        | no       |
+| git_data_directory                | Name of gitlab data disk                                                                                                  | `string`| `/mnt/gitlab-data` | no       |
+| snapshot_interval                 | How often this lifecycle policy should be evaluated                                                                       | `string`| `24`               | no       |
+| snapshot_start_time               | List of times in 24 hour clock format that sets when the lifecycle policy should be evaluated                             | `string`| `00:00`            | no       |
+| retain_rule                       | How many snapshots to keep. Must be an integer between 1 and 1000.                                                        | `number`| `10`               | no       |
+| gitlab_alb_ideal_timeout          | Time in seconds that the connection is allowed to be idle.                                                                | `number`| `60`               | no       |
+| gitlab_application_ami            | AMI of gitlab application to be used with Gitlab instance.                                                                | `string`| ""                 | yes      |
+| zone_id                           | ID of the hosted zone to contain Route53 record.                                                                          | `string`| ""                 | yes      |
+| alias                             | Display name of KMS Key alias. Name must start with the word `alias` followed by a forward slash                          | `string`| `alias/gitlab-kms` | no       |
+| enable_key_rotation               | Specifies whether key rotation is enabled                                                                                 | `bool`  | `true`             | no       |
+| ssh_key_name                      | SSH key for ec2 ssh                                                                                                       | `string`| ""                 | yes      |
 
 ## OUTPUT VALUE NAMES
 
