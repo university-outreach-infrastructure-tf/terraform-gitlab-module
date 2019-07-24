@@ -1,12 +1,11 @@
 #cloud-config
 bootcmd:
-    - exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
     - sudo mkfs -t xfs ${git_data_disk}
     - sudo mkdir -p ${git_data_disk_mount_point}
     - sudo mkdir -p /etc/gitlab/ssl
     - sudo chmod 700 /etc/gitlab/ssl
-    - sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/gitlab/ssl/${gitlab_application_comman_name}.key -x509 -days 365 -out /etc/gitlab/ssl/${gitlab_application_comman_name}.pem -subj "/C=$cert_country/ST=$cert_state/L=$cert_locality/O=$cert_org/OU=$cert_org_unit/CN=$gitlab_application_comman_name/emailAddress=$cert_email"
-    - sudo chmod 0400 /etc/gitlab/ssl/${gitlab_application_comman_name}.*
+    - sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/gitlab/ssl/gitlabssl.key -x509 -days 3650 -out /etc/gitlab/ssl/gitlabssl.crt -subj "/CN=${domain_name}"
+    - sudo chmod 0400 /etc/gitlab/ssl/gitlabssl.*
 write_files:
     - content: |
         ####! External_Url
@@ -14,8 +13,8 @@ write_files:
         ####! GitLab NGINX
         ####! Docs: https://docs.gitlab.com/omnibus/settings/nginx.html
         nginx['redirect_http_to_https'] = true
-        nginx['ssl_certificate'] = "/etc/gitlab/ssl/${gitlab_application_comman_name}.pem"
-        nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/${gitlab_application_comman_name}.key"
+        nginx['ssl_certificate'] = "/etc/gitlab/ssl/gitlabssl.crt"
+        nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/gitlabssl.key"
         ####! Job artifacts Object Store
         ####! Docs: https://docs.gitlab.com/ee/administration/job_artifacts.html#using-object-storage
         gitlab_rails['artifacts_enabled'] = true

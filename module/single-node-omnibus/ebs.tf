@@ -55,4 +55,3 @@ resource "aws_dlm_lifecycle_policy" "data" {
     }
   }
 }
-

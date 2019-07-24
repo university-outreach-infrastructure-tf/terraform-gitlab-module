@@ -57,12 +57,6 @@ variable "gitlab_registry_s3_bucket_name" {
   default     = ""
 }
 
-variable "contact_email"{
-  type        = string
-  description = "Contact email address"
-  default     = ""
-}
-
 variable "dns_name" {
   type        = string
   description = "A domain name for which the certificate should be issued"
@@ -151,79 +145,8 @@ variable "enable_key_rotation" {
   default     = true
 }
 
-variable "public_key_path" {
-  type        = string
-  description = "Path to SSH public key directory"
-  default     = ""
-}
-
-variable "private_key_extension" {
-  type        = string
-  description = "Private key extension"
-  default     = ""
-}
-
-variable "public_key_extension" {
-  type = string
-  description = "Public key extension"
-  default = ""
-}
-
 variable "ssh_key_name"{
   type        = string
   description = "ssh key for ec2 ssh"
-  default     = ""
-}
-
-variable "ssm_path_prefix"{
-  type        = string
-  description = "The SSM parameter path prefix (e.g. /$ssm_path_prefix/$key_name)"
-  default     = ""
-}
-
-variable "ssm_path_format"{
-  type        = string
-  description = "SSM path format"
-  default     = ""
-}
-
-variable "ssl_cert_country"{
-  type        = string
-  description = "SSM path format"
-  default     = ""
-}
-
-variable "ssl_cert_state" {
-  type        = string
-  description = "SSM path format"
-  default     = ""
-}
-
-variable "ssl_cert_locality" {
-  type        = string
-  description = "SSM path format"
-  default     = ""
-}
-
-variable "ssl_cert_org" {
-  type        = string
-  description = "SSM path format"
-  default     = ""
-}
-
-variable "ssl_cert_org_unit" {
-  type        = string
-  description = "SSM path format"
-  default     = ""
-}
-
-variable "ssl_cert_email" {
-  type        = string
-  description = "SSM path format"
-  default     = ""
-}
-
-variable "gitlab_application_comman_name" {
-  type        = string
   default     = ""
 }

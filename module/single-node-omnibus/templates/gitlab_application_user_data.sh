@@ -8,8 +8,7 @@ sudo mount ${git_data_disk} ${git_data_disk_mount_point}
 
 sudo mkdir -p /etc/gitlab/ssl
 sudo chmod -R 700 /etc/gitlab/ssl
-
-sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/gitlab/ssl/app.nmcapstone.key -x509 -days 365 -out /etc/gitlab/ssl/app.nmcapstone.crt -subj "/C=us/ST=ny/L=nyc/O=nm/OU=te/CN=app.nmcapstone.com/emailAddress=abc@xyz.com"
+sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/gitlab/ssl/gitlabssl.key -x509 -days 3650 -out /etc/gitlab/ssl/gitlabssl.crt -subj "/CN=${domain_name}"
 sudo chmod 0400 /etc/gitlab/ssl/app.nmcapstone.*
 
 sudo chmod 0600 /etc/gitlab/gitlab.rb
@@ -19,8 +18,8 @@ external_url 'https://${domain_name}'
 ####! GitLab NGINX
 ####! Docs: https://docs.gitlab.com/omnibus/settings/nginx.html
 nginx['redirect_http_to_https'] = true
-nginx['ssl_certificate'] = '/etc/gitlab/ssl/${gitlab_application_comman_name}.pem'
-nginx['ssl_certificate_key'] = '/etc/gitlab/ssl/${gitlab_application_comman_name}.key'
+nginx['ssl_certificate'] = '/etc/gitlab/ssl/gitlabssl.crt'
+nginx['ssl_certificate_key'] = '/etc/gitlab/ssl/gitlabssl.key'
 ####! Job artifacts Object Store
 ####! Docs: https://docs.gitlab.com/ee/administration/job_artifacts.html#using-object-storage
 gitlab_rails['artifacts_enabled'] = true
@@ -51,4 +50,3 @@ git_data_dirs({'default' => { 'path' => '${git_data_disk_mount_point}'}}) " >> /
 
 
 sudo gitlab-ctl reconfigure
-

@@ -27,24 +27,17 @@ variable "zone_id" {
 variable "gitlab_ami" {
 }
 
-variable "ssl_cert_country" {
+variable "ssh_key_name"{
 }
 
-variable "ssl_cert_state" {
+variable "gitlab_artifactory_s3_bucket_name" {
 }
 
-variable "ssl_cert_locality" {
+variable "gitlab_lfs_s3_bucket_name" {
 }
 
-variable "ssl_cert_org" {
+variable "gitlab_packages_s3_bucket_name" {
 }
 
-variable "ssl_cert_org_unit" {
+variable "gitlab_registry_s3_bucket_name" {
 }
-
-variable "ssl_cert_email" {
-}
-
-variable "gitlab_application_comman_name" {
-}
-

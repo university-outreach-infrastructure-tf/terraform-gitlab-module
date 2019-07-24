@@ -16,21 +16,10 @@ module "gitlab" {
   dns_name                          = var.dns_name
   domain_name                       = var.domain_name
   zone_id                           = var.zone_id
-  private_key_extension             = ".pem"
-  public_key_extension              = ".pub"
-  public_key_path                   = "./secrets"
+  ssh_key_name                      = var.ssh_key_name
   gitlab_application_ami            = var.gitlab_ami
-  gitlab_artifactory_s3_bucket_name = "gitlab-artifactory"
-  gitlab_lfs_s3_bucket_name         = "gitlab-lfs"
-  gitlab_packages_s3_bucket_name    = "gitlab-packages"
-  gitlab_registry_s3_bucket_name    = "gitlab-registry"
-  contact_email                     = "abhimanyunarwal@northwesternmutual.com"
-  gitlab_application_comman_name    = var.gitlab_application_comman_name
-  ssl_cert_country                  = var.ssl_cert_country
-  ssl_cert_state                    = var.ssl_cert_state
-  ssl_cert_locality                 = var.ssl_cert_locality
-  ssl_cert_org                      = var.ssl_cert_org
-  ssl_cert_org_unit                 = var.ssl_cert_org_unit
-  ssl_cert_email                    = var.ssl_cert_email
+  gitlab_artifactory_s3_bucket_name = var.gitlab_artifactory_s3_bucket_name
+  gitlab_lfs_s3_bucket_name         = var.gitlab_lfs_s3_bucket_name
+  gitlab_packages_s3_bucket_name    = var.gitlab_packages_s3_bucket_name
+  gitlab_registry_s3_bucket_name    = var.gitlab_registry_s3_bucket_name
 }
-
