@@ -110,9 +110,9 @@ variable "snapshot_interval" {
 }
 
 variable "snapshot_start_time" {
-  type        = string
+  type        = list
   description = "A list of times in 24 hour clock format that sets when the lifecycle policy should be evaluated."
-  default     = "00:00"
+  default     = ["00:00"]
 }
 
 variable "retain_rule" {

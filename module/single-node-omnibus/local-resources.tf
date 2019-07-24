@@ -1,10 +1,10 @@
 # use this resource when a module accepts a subnet id as an input variable and needs to, for example, determine the id of the VPC that the subnet belongs to.
 data "aws_subnet" "private_selected" {
-  id = "${element (["${var.private_subnet_id}"], 0)}"
+  id = element(var.private_subnet_id, 0)
 }
 
 data "aws_subnet" "public_selected" {
-  id = "${element (["${var.public_subnet_id}"], 0)}"
+  id = element(var.public_subnet_id, 0)
 }
 
 # Use this data source to get the access to the effective Account ID, User ID, and ARN in which Terraform is authorized.
@@ -49,6 +49,7 @@ data "template_cloudinit_config" "config" {
   part {
     content_type = "text/cloud-config"
     content      = "${data.template_file.gitlab_application_user_data.rendered}"
-  }
+    }
 }
+
 

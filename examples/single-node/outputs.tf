@@ -93,4 +93,3 @@ output "bastion_public_eip" {
 output "gitlab_private_ip" {
   value = module.gitlab.gitlab_private_ip
 }
-
