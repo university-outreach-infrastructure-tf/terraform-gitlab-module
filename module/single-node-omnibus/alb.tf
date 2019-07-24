@@ -50,6 +50,19 @@ resource "aws_lb_listener" "gitlab_alb_https_listener" {
   }
 }
 
+
+resource "aws_lb_listener" "gitlab_registry_alb_https_listener" {
+  load_balancer_arn = "${aws_lb.gitlab_alb.arn}"
+  port              = 4000
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = "${aws_acm_certificate.gitlab_cert.arn}"
+  default_action {
+    target_group_arn = "${aws_lb_target_group.gitlab_alb_tg.arn}"
+    type             = "forward"
+  }
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # ATTACH THE GITLAB INSTANCE TO THE LOAD BALANCER
 # ---------------------------------------------------------------------------------------------------------------------
