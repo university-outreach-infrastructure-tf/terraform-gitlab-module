@@ -9,7 +9,8 @@ resource "aws_ebs_volume" "gitlab_data" {
     map(
       "Name", "${module.gitlab_label.name}_data_disk",
       "Type", "gitlab-data",
-      "snapshot_policy", "${module.gitlab_label.name}-data daily snapshots"
+      "snapshot_policy", "${module.gitlab_label.name}-data daily snapshots",
+      "Snapshot", "true"
     )
   )}"
 }
