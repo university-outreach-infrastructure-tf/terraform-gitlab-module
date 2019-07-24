@@ -23,7 +23,7 @@ resource "aws_volume_attachment" "gitlab_data_attachment" {
 
 resource "aws_dlm_lifecycle_policy" "data" {
   description        = "Gitlab Data Volume DLM lifecycle policy"
-  execution_role_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/StackSetDLMRole"
+  execution_role_arn = "${aws_iam_role.dlm_lifecycle_role.arn}"
   state              = "ENABLED"
 
   policy_details {

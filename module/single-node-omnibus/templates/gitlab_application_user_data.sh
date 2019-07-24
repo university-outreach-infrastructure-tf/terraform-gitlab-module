@@ -16,14 +16,11 @@ sudo chmod 0600 /etc/gitlab/gitlab.rb
 echo "
 ####! External_Url
 external_url 'https://${domain_name}'
-registry_external_url 'https://${domain_name}:4000'
 ####! GitLab NGINX
 ####! Docs: https://docs.gitlab.com/omnibus/settings/nginx.html
 nginx['redirect_http_to_https'] = true
 nginx['ssl_certificate'] = '/etc/gitlab/ssl/${gitlab_application_comman_name}.pem'
 nginx['ssl_certificate_key'] = '/etc/gitlab/ssl/${gitlab_application_comman_name}.key'
-registry_nginx['ssl_certificate'] = '/etc/gitlab/ssl/${gitlab_application_comman_name}.pem'
-registry_nginx['ssl_certificate_key'] = '/etc/gitlab/ssl/${gitlab_application_comman_name}.key'
 ####! Job artifacts Object Store
 ####! Docs: https://docs.gitlab.com/ee/administration/job_artifacts.html#using-object-storage
 gitlab_rails['artifacts_enabled'] = true
@@ -50,7 +47,7 @@ gitlab_rails['packages_object_store_connection'] = {'provider' => '${s3_bucket_p
 registry['storage'] = {'s3' => {'accesskey' => '${s3_bucket_user_access_key}','secretkey' => '${s3_bucket_user_secret_key}','region' => '${s3_bucket_region}','bucket' => '${registry_s3_bucket_name}'}}
 ####! For setting up different data storing directory
 ####! Docs: https://docs.gitlab.com/omnibus/settings/configuration.html#storing-git-data-in-an-alternative-directory
-git_data_dirs({'default' => { 'path' => '${git_data_disk_mount_point}'}}) " > /etc/gitlab/gitlab.rb
+git_data_dirs({'default' => { 'path' => '${git_data_disk_mount_point}'}}) " >> /etc/gitlab/gitlab.rb
 
 
 sudo gitlab-ctl reconfigure

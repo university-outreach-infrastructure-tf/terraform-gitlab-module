@@ -2,10 +2,9 @@
 bootcmd:
     - sudo mkfs -t xfs ${git_data_disk}
     - sudo mkdir -p ${git_data_disk_mount_point}
-    - sudo mount ${git_data_disk} ${git_data_disk_mount_point}
     - sudo mkdir -p /etc/gitlab/ssl
     - sudo chmod 700 /etc/gitlab/ssl
-    - sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/gitlab/ssl/app.nmcapstone.key -x509 -days 365 -out /etc/gitlab/ssl/app.nmcapstone.crt -subj "/C=us/ST=ny/L=nyc/O=nm/OU=te/CN=app.nmcapstone.com/emailAddress=abc@xyz.com"
+    - sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/gitlab/ssl/${gitlab_application_comman_name}.key -x509 -days 365 -out /etc/gitlab/ssl/${gitlab_application_comman_name}.crt -subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$gitlab_application_comman_name/emailAddress=$email"
     - sudo chmod 0400 /etc/gitlab/ssl/${gitlab_application_comman_name}.*
 write_files:
     - content: |
@@ -46,4 +45,5 @@ write_files:
       path: /etc/gitlab/gitlab.rb
       permissions: '0600'
 runcmd:
+    - [ mount, ${git_data_disk}, ${git_data_disk_mount_point} ]
     - [ gitlab-ctl, reconfigure ]
