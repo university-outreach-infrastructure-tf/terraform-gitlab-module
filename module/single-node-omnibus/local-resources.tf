@@ -44,7 +44,6 @@ data "template_file" "gitlab_application_user_data" {
     registry_s3_bucket_name         = "${var.gitlab_registry_s3_bucket_name}"
     domain_name                     = "${var.domain_name}"
     gitlab_application_comman_name  = "${var.gitlab_application_comman_name}"
-    password                        = "$(openssl rand -base64 32)"
     cert_country                    = "${var.ssl_cert_country}"
     cert_state                      = "${var.ssl_cert_state}"
     cert_locality                   = "${var.ssl_cert_locality}"
@@ -59,6 +58,5 @@ data "template_cloudinit_config" "config" {
     content_type = "text/cloud-config"
     content      = "${data.template_file.gitlab_application_user_data.rendered}"
   }
-
 }
 

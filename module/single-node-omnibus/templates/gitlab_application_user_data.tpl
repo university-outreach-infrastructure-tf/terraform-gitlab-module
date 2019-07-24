@@ -1,17 +1,12 @@
 #cloud-config
-runcmd:
+bootcmd:
     - sudo mkfs -t xfs ${git_data_disk}
-    - sudo mkdir ${git_data_disk_mount_point}
-    - sudo mkdir /etc/gitlab/ssl
+    - sudo mkdir -p ${git_data_disk_mount_point}
+    - sudo mount ${git_data_disk} ${git_data_disk_mount_point}
+    - sudo mkdir -p /etc/gitlab/ssl
     - sudo chmod 700 /etc/gitlab/ssl
-    - openssl genrsa -des3 -passout pass:$password -out /etc/gitlab/ssl/${gitlab_application_comman_name}.key 2048 -noout
-    - openssl rsa -in /etc/gitlab/ssl/${gitlab_application_comman_name}.key -passin pass:$password -out /etc/gitlab/ssl/${gitlab_application_comman_name}.key
-    - openssl req -new -key /etc/gitlab/ssl/${gitlab_application_comman_name}.key -out /etc/gitlab/ssl/${gitlab_application_comman_name}.csr -passin pass:$password -subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$gitlab_application_comman_name/emailAddress=$email"
-    - openssl x509 -req -days 365 -in /etc/gitlab/ssl/${gitlab_application_comman_name}.csr -signkey /etc/gitlab/ssl/${gitlab_application_comman_name}.key -out /etc/gitlab/ssl/${gitlab_application_comman_name}.crt
-    - sudo rm -rf /etc/gitlab/ssl/${gitlab_application_comman_name}.csr
+    - sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/gitlab/ssl/app.nmcapstone.key -x509 -days 365 -out /etc/gitlab/ssl/app.nmcapstone.crt -subj "/C=us/ST=ny/L=nyc/O=nm/OU=te/CN=app.nmcapstone.com/emailAddress=abc@xyz.com"
     - sudo chmod 0400 /etc/gitlab/ssl/${gitlab_application_comman_name}.*
-mounts:
-    - [ ${git_data_disk}, ${git_data_disk_mount_point}]
 write_files:
     - content: |
         ####! External_Url
