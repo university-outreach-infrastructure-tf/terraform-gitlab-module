@@ -67,7 +67,7 @@ EOF
 }
 
 resource "aws_iam_role" "dlm_lifecycle_role" {
-  name = "dlm-lifecycle-role"
+  name = format("%s-role",module.gitlab_label.id)
 
   assume_role_policy = <<EOF
 {
@@ -86,8 +86,8 @@ resource "aws_iam_role" "dlm_lifecycle_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "dlm_lifecycle" {
-  name = "dlm-lifecycle-policy"
+resource "aws_iam_role_policy" "dlm_lifecycle_policy" {
+  name = format("%s-role-policy",module.gitlab_label.id)
   role = aws_iam_role.dlm_lifecycle_role.id
 
   policy = <<EOF

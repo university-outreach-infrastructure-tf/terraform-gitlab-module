@@ -6,6 +6,6 @@ resource "aws_kms_key" "gitlab_kms_key" {
 }
 
 resource "aws_kms_alias" "gitlab_kms_key_alias" {
-  name          = coalesce(var.alias, format("alias/%v", module.gitlab_label.id))
+  name          = coalesce(var.gitlab_kms_alias, format("alias/%v", module.gitlab_label.id))
   target_key_id = aws_kms_key.gitlab_kms_key.key_id
 }

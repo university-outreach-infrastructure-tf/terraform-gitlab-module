@@ -42,6 +42,8 @@ module "gitlab" {
       gitlab_lfs_s3_bucket_name         = var.gitlab_lfs_s3_bucket_name
       gitlab_packages_s3_bucket_name    = var.gitlab_packages_s3_bucket_name
       gitlab_registry_s3_bucket_name    = var.gitlab_registry_s3_bucket_name
+      gitlab_backup_s3_bucket_name      = var.gitlab_backup_s3_bucket_name
+      gitlab_kms_alias                  = var.gitlab_kms_alias
 }
 ```
 
@@ -59,6 +61,7 @@ module "gitlab" {
 | gitlab_lfs_s3_bucket_name         | Name of Gitlab LFS S3 bucket                                                                                              | `string`| ""                 | yes      |
 | gitlab_packages_s3_bucket_name    | Name of Gitlab Packages S3 bucket                                                                                         | `string`| ""                 | yes      |
 | gitlab_registry_s3_bucket_name    | Name of Gitlab Registry S3 bucket                                                                                         | `string`| ""                 | yes      |
+| gitlab_backup_s3_bucket_name      | Name of Gitlab Backup S3 bucket                                                                                           | `string`| ""                 | yes      |
 | dns_name                          | Domain name for which the certificate should be issued                                                                    | `string`| ""                 | yes      |
 | domain_name                       | ALB record53 entry domain name                                                                                            | `string`| ""                 | yes      |
 | public_subnet_id                  | List of public subnet IDs to attach                                                                                       | `list`  | `<list>`           | yes      |
@@ -73,7 +76,7 @@ module "gitlab" {
 | gitlab_alb_ideal_timeout          | Time in seconds that the connection is allowed to be idle.                                                                | `number`| `60`               | no       |
 | gitlab_application_ami            | AMI of gitlab application to be used with Gitlab instance.                                                                | `string`| ""                 | yes      |
 | zone_id                           | ID of the hosted zone to contain Route53 record.                                                                          | `string`| ""                 | yes      |
-| alias                             | Display name of KMS Key alias. Name must start with the word `alias` followed by a forward slash                          | `string`| `alias/gitlab-kms` | no       |
+| gitlab_kms_alias                  | Display name of KMS Key alias. Name must start with the word `alias` followed by a forward slash                          | `string`| ""                 | yes      |
 | enable_key_rotation               | Specifies whether key rotation is enabled                                                                                 | `bool`  | `true`             | no       |
 | ssh_key_name                      | SSH key for ec2 ssh                                                                                                       | `string`| ""                 | yes      |
 

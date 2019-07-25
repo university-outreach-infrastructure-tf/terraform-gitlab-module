@@ -48,5 +48,4 @@ registry['storage'] = {'s3' => {'accesskey' => '${s3_bucket_user_access_key}','s
 ####! Docs: https://docs.gitlab.com/omnibus/settings/configuration.html#storing-git-data-in-an-alternative-directory
 git_data_dirs({'default' => { 'path' => '${git_data_disk_mount_point}'}}) " >> /etc/gitlab/gitlab.rb
 
-
 sudo gitlab-ctl reconfigure

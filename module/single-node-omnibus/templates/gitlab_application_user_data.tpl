@@ -5,7 +5,7 @@ bootcmd:
     - sudo mkdir -p /etc/gitlab/ssl
     - sudo chmod 700 /etc/gitlab/ssl
     - sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/gitlab/ssl/gitlabssl.key -x509 -days 3650 -out /etc/gitlab/ssl/gitlabssl.crt -subj "/CN=${domain_name}"
-    - sudo chmod 0400 /etc/gitlab/ssl/gitlabssl.*
+    - sudo chmod 600 /etc/gitlab/ssl/gitlabssl.*
 write_files:
     - content: |
         ####! External_Url
@@ -42,8 +42,13 @@ write_files:
         ####! For setting up different data storing directory
         ####! Docs: https://docs.gitlab.com/omnibus/settings/configuration.html#storing-git-data-in-an-alternative-directory
         git_data_dirs({'default' => { 'path' => '${git_data_disk_mount_point}'}})
+        ####! Backup Settings
+        ####! Docs: https://docs.gitlab.com/omnibus/settings/backups.html
+        gitlab_rails['backup_upload_connection'] = {'provider' => '${s3_bucket_provider}',    'region' => '${s3_bucket_region}',    'aws_access_key_id' => '${s3_bucket_user_access_key}', 'aws_secret_access_key' => '${s3_bucket_user_secret_key}'}
+        gitlab_rails['backup_upload_remote_directory'] = "${backup_s3_bucket_name}"
       path: /etc/gitlab/gitlab.rb
       permissions: '0600'
 runcmd:
-    - [ mount, ${git_data_disk}, ${git_data_disk_mount_point} ]
-    - [ gitlab-ctl, reconfigure ]
+    - [mount, ${git_data_disk}, ${git_data_disk_mount_point}]
+    - [chown, -R, "git:git", ${git_data_disk_mount_point}]
+    - [gitlab-ctl, reconfigure]
