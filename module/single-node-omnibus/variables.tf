@@ -57,6 +57,12 @@ variable "gitlab_registry_s3_bucket_name" {
   default     = ""
 }
 
+variable "gitlab_backup_s3_bucket_name" {
+  type        = string
+  description = "Name of Gitlab Backup S3 bucket"
+  default     = ""
+}
+
 variable "dns_name" {
   type        = string
   description = "A domain name for which the certificate should be issued"
@@ -143,10 +149,10 @@ variable "zone_id" {
   default     = ""
 }
 
-variable "alias" {
+variable "gitlab_kms_alias" {
   type        = string
   description = "The display name of the alias. The name must start with the word `alias` followed by a forward slash"
-  default     = "alias/gitlab-kms"
+  default     = ""
 }
 
 variable "enable_key_rotation" {

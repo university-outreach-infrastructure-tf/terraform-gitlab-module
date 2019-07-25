@@ -41,3 +41,9 @@ variable "gitlab_packages_s3_bucket_name" {
 
 variable "gitlab_registry_s3_bucket_name" {
 }
+
+variable "gitlab_backup_s3_bucket_name" {
+}
+
+variable "gitlab_kms_alias" {
+}

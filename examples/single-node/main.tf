@@ -22,4 +22,6 @@ module "gitlab" {
   gitlab_lfs_s3_bucket_name         = var.gitlab_lfs_s3_bucket_name
   gitlab_packages_s3_bucket_name    = var.gitlab_packages_s3_bucket_name
   gitlab_registry_s3_bucket_name    = var.gitlab_registry_s3_bucket_name
+  gitlab_backup_s3_bucket_name      = var.gitlab_backup_s3_bucket_name
+  gitlab_kms_alias                  = var.gitlab_kms_alias
 }
