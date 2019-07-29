@@ -15,6 +15,7 @@ module "gitlab" {
   public_subnet_id                  = var.public_subnet_id
   dns_name                          = var.dns_name
   domain_name                       = var.domain_name
+  registry_domain_name              = var.registry_domain_name
   zone_id                           = var.zone_id
   ssh_key_name                      = var.ssh_key_name
   gitlab_application_ami            = var.gitlab_ami

@@ -75,6 +75,12 @@ variable "domain_name" {
   default     = ""
 }
 
+variable "registry_domain_name" {
+  type        = string
+  description = "ALB record53 entry registry domain name"
+  default     = ""
+}
+
 variable "public_subnet_id" {
   type        = list
   description = "A list of public subnet IDs to attach"
@@ -123,7 +129,7 @@ variable "snapshot_start_time" {
 
 variable "retain_rule" {
   description = "How many snapshots to keep. Must be an integer between 1 and 1000."
-  default     = 10
+  default     = 5
 }
 
 variable "gitlab_alb_ideal_timeout" {

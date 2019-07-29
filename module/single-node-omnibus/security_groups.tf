@@ -62,13 +62,6 @@ resource "aws_security_group" "gitlab_alb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    from_port   = 4000
-    to_port     = 4000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -97,13 +90,6 @@ resource "aws_security_group" "internal_gitlab" {
   ingress {
     from_port       = 443
     to_port         = 443
-    protocol        = "tcp"
-    security_groups = ["${aws_security_group.gitlab_alb.id}"]
-  }
-
-  ingress {
-    from_port       = 4000
-    to_port         = 4000
     protocol        = "tcp"
     security_groups = ["${aws_security_group.gitlab_alb.id}"]
   }

@@ -21,6 +21,9 @@ variable "dns_name" {
 variable "domain_name" {
 }
 
+variable "registry_domain_name" {
+}
+
 variable "zone_id" {
 }
 
