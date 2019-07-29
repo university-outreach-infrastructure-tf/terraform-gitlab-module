@@ -4,10 +4,10 @@ This module assumes following resources are already available:
 1. VPC
 2. Public Subnet
 3. Private Subnet
-5. Route table, Route, Route Table Association for public subnet
-6. Internet gateway for public subnet
-4. Registered Domain Name
-5. Route53 Hosted Zone
+4. Route table, Route, Route Table Association for public subnet
+5. Internet gateway for public subnet
+6. Registered Domain Name
+7. Route53 Hosted Zone
 
 and it creates following resources:
 
