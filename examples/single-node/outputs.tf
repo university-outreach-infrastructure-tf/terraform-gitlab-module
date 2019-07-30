@@ -86,6 +86,10 @@ output "route53_gitlab_alb" {
   value = module.gitlab.route53_gitlab_alb
 }
 
+output "route53_gitlab_registry_alb" {
+  value = module.gitlab.route53_gitlab_registry_alb
+}
+
 output "bastion_public_eip" {
   value = module.gitlab.bastion_public_eip
 }

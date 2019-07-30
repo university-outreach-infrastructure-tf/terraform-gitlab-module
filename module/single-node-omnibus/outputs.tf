@@ -86,6 +86,10 @@ output "route53_gitlab_alb" {
   value = aws_route53_record.alb_dns.fqdn
 }
 
+output "route53_gitlab_registry_alb" {
+  value = aws_route53_record.reg_alb_dns.fqdn
+}
+
 output "bastion_public_eip" {
   value = aws_eip.bastion.public_ip
 }
