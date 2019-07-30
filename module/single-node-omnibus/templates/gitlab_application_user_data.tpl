@@ -5,9 +5,7 @@ bootcmd:
     - sudo mkdir -p /etc/gitlab/ssl
     - sudo chmod 700 /etc/gitlab/ssl
     - sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/gitlab/ssl/gitlabssl.key -x509 -days 3650 -out /etc/gitlab/ssl/gitlabssl.crt -subj "/CN=${domain_name}"
-    - sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/gitlab/ssl/registryssl.key -x509 -days 3650 -out /etc/gitlab/ssl/registryssl.crt -subj "/CN=${reg_domain_name}"
     - sudo chmod 600 /etc/gitlab/ssl/gitlabssl.*
-    - sudo chmod 600 /etc/gitlab/ssl/registryssl.*
 write_files:
     - content: |
         ####! External_Url
@@ -17,9 +15,6 @@ write_files:
         nginx['redirect_http_to_https'] = true
         nginx['ssl_certificate'] = "/etc/gitlab/ssl/gitlabssl.crt"
         nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/gitlabssl.key"
-        registry_nginx['redirect_http_to_https'] = true
-        registry_nginx['ssl_certificate'] = "/etc/gitlab/ssl/registryssl.crt"
-        registry_nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/registryssl.key"
         ####! Job artifacts Object Store
         ####! Docs: https://docs.gitlab.com/ee/administration/job_artifacts.html#using-object-storage
         gitlab_rails['artifacts_enabled'] = true
