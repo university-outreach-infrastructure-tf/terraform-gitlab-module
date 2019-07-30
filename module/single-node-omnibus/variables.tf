@@ -75,12 +75,6 @@ variable "domain_name" {
   default     = ""
 }
 
-variable "registry_domain_name" {
-  type        = string
-  description = "ALB record53 entry registry domain name"
-  default     = ""
-}
-
 variable "public_subnet_id" {
   type        = list
   description = "A list of public subnet IDs to attach"

@@ -35,7 +35,6 @@ module "gitlab" {
       public_subnet_id                  = var.public_subnet_id
       dns_name                          = var.dns_name
       domain_name                       = var.domain_name
-      registry_domain_name              = var.registry_domain_name
       zone_id                           = var.zone_id
       ssh_key_name                      = var.ssh_key_name
       gitlab_application_ami            = var.gitlab_ami
@@ -65,7 +64,6 @@ module "gitlab" {
 | gitlab_backup_s3_bucket_name      | Name of Gitlab Backup S3 bucket                                                                                           | `string`| ""                 | yes      |
 | dns_name                          | Domain name for which the certificate should be issued                                                                    | `string`| ""                 | yes      |
 | domain_name                       | ALB record53 entry domain name                                                                                            | `string`| ""                 | yes      |
-| registry_domain_name              | ALB record53 entry registry domain name                                                                                   | `string`| ""                 | yes      |
 | public_subnet_id                  | List of public subnet IDs to attach                                                                                       | `list`  | `<list>`           | yes      |
 | private_subnet_id                 | List of private subnet IDs to attach                                                                                      | `list`  | `<list>`           | yes      |
 | vpc_id                            | Id of the VPC Gitlab will be provisioned in                                                                               | `string`| ""                 | yes      |
@@ -108,6 +106,5 @@ module "gitlab" {
 | acm_cert_arn                      | ACM Certificate ARN                           | 
 | route53_cert_validation           | ALB Route53 FQDN                              | 
 | route53_gitlab_alb                | Route53 FQDN for gitlab instance              | 
-| route53_gitlab_registry_alb       | Route53 FQDN for registry                     | 
 | bastion_public_eip                | EIP Address of Bastion Instance               | 
 | gitlab_private_ip                 | Private IP Address of Gitlab Instance         | 
