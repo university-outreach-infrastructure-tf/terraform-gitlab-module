@@ -45,18 +45,6 @@ variable "gitlab_lfs_s3_bucket_name" {
   default     = ""
 }
 
-variable "gitlab_packages_s3_bucket_name" {
-  type        = string
-  description = "Name of Gitlab Packages S3 bucket"
-  default     = ""
-}
-
-variable "gitlab_registry_s3_bucket_name" {
-  type        = string
-  description = "Name of Gitlab Registry S3 bucket"
-  default     = ""
-}
-
 variable "gitlab_backup_s3_bucket_name" {
   type        = string
   description = "Name of Gitlab Backup S3 bucket"

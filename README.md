@@ -40,8 +40,6 @@ module "gitlab" {
       gitlab_application_ami            = var.gitlab_ami
       gitlab_artifactory_s3_bucket_name = var.gitlab_artifactory_s3_bucket_name
       gitlab_lfs_s3_bucket_name         = var.gitlab_lfs_s3_bucket_name
-      gitlab_packages_s3_bucket_name    = var.gitlab_packages_s3_bucket_name
-      gitlab_registry_s3_bucket_name    = var.gitlab_registry_s3_bucket_name
       gitlab_backup_s3_bucket_name      = var.gitlab_backup_s3_bucket_name
       gitlab_kms_alias                  = var.gitlab_kms_alias
 }
@@ -59,8 +57,6 @@ module "gitlab" {
 | force_destroy_s3_bucket           | Boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error.   | `bool`  | `false`            | no       |
 | gitlab_artifactory_s3_bucket_name | Name of Gitlab Artifactory S3 bucket                                                                                      | `string`| ""                 | yes      |
 | gitlab_lfs_s3_bucket_name         | Name of Gitlab LFS S3 bucket                                                                                              | `string`| ""                 | yes      |
-| gitlab_packages_s3_bucket_name    | Name of Gitlab Packages S3 bucket                                                                                         | `string`| ""                 | yes      |
-| gitlab_registry_s3_bucket_name    | Name of Gitlab Registry S3 bucket                                                                                         | `string`| ""                 | yes      |
 | gitlab_backup_s3_bucket_name      | Name of Gitlab Backup S3 bucket                                                                                           | `string`| ""                 | yes      |
 | dns_name                          | Domain name for which the certificate should be issued                                                                    | `string`| ""                 | yes      |
 | domain_name                       | ALB record53 entry domain name                                                                                            | `string`| ""                 | yes      |
@@ -86,10 +82,6 @@ module "gitlab" {
 | ----------------------------------| ----------------------------------------------| 
 | gitlab_artifactory_s3_bucket_id   | Gitlab artifactory S3 bucket Name             | 
 | gitlab_artifactory_s3_bucket_arn  | Gitlab artifactory S3 bucket ARN              | 
-| gitlab_registry_s3_bucket_id      | Gitlab registry S3 bucket Name                | 
-| gitlab_registry_s3_bucket_arn     | Gitlab registry S3 bucket ARN                 | 
-| gitlab_packages_s3_bucket_id      | Gitlab packages S3 bucket Name                |
-| gitlab_packages_s3_bucket_arn     | Gitlab packages S3 bucket ARN                 | 
 | gitlab_lfs_s3_bucket_id           | Gitlab LFS S3 bucket Name                     | 
 | gitlab_lfs_s3_bucket_arn          | Gitlab LFS S3 bucket ARN                      | 
 | s3_secret_key                     | S3 IAM User secret key                        | 

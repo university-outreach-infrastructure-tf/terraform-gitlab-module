@@ -6,22 +6,6 @@ output "gitlab_artifactory_s3_bucket_arn" {
   value = aws_s3_bucket.gitlab_artifactory_s3_bucket.arn
 }
 
-output "gitlab_registry_s3_bucket_id" {
-  value = aws_s3_bucket.gitlab_registry_s3_bucket.id
-}
-
-output "gitlab_registry_s3_bucket_arn" {
-  value = aws_s3_bucket.gitlab_registry_s3_bucket.arn
-}
-
-output "gitlab_packages_s3_bucket_id" {
-  value = aws_s3_bucket.gitlab_packages_s3_bucket.id
-}
-
-output "gitlab_packages_s3_bucket_arn" {
-  value = aws_s3_bucket.gitlab_packages_s3_bucket.arn
-}
-
 output "gitlab_lfs_s3_bucket_id" {
   value = aws_s3_bucket.gitlab_lfs_s3_bucket.id
 }
