@@ -43,7 +43,6 @@ data "template_file" "gitlab_application_user_data" {
     registry_s3_bucket_name         = format("%s-%s",module.gitlab_label.id, var.gitlab_registry_s3_bucket_name)
     backup_s3_bucket_name           = format("%s-%s",module.gitlab_label.id, var.gitlab_backup_s3_bucket_name)
     domain_name                     = var.domain_name
-    reg_domain_name                 = var.registry_domain_name
   }
 }
 
