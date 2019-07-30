@@ -5,7 +5,7 @@ resource "aws_ebs_volume" "gitlab_data" {
   type              = "gp2"
   availability_zone = data.aws_subnet.private_selected.availability_zone
   tags  = {
-      "Name" = format("%s-data-disk",module.gitlab_label.name),
+      "Name" = format("%s-gitlab-data-disk",module.gitlab_label.name),
       "Type" = "gitlab-data",
       "snapshot_policy" = format("%s-data daily snapshots", module.gitlab_label.name),
       "Snapshot"=  "true"

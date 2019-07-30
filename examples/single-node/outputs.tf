@@ -6,22 +6,6 @@ output "gitlab_artifactory_s3_bucket_arn" {
   value = module.gitlab.gitlab_artifactory_s3_bucket_arn
 }
 
-output "gitlab_packages_s3_bucket_id" {
-  value = module.gitlab.gitlab_packages_s3_bucket_id
-}
-
-output "gitlab_packages_s3_bucket_arn" {
-  value = module.gitlab.gitlab_packages_s3_bucket_arn
-}
-
-output "gitlab_registry_s3_bucket_id" {
-  value = module.gitlab.gitlab_registry_s3_bucket_id
-}
-
-output "gitlab_registry_s3_bucket_arn" {
-  value = module.gitlab.gitlab_registry_s3_bucket_arn
-}
-
 output "gitlab_lfs_s3_bucket_id" {
   value = module.gitlab.gitlab_lfs_s3_bucket_id
 }

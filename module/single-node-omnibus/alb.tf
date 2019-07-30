@@ -5,14 +5,14 @@ resource "aws_lb" "gitlab_alb" {
   security_groups    = [aws_security_group.gitlab_alb.id]
   ip_address_type    = "ipv4"
   subnets            = var.public_subnet_id
-  tags               = {"Name" = format("%s-alb", module.gitlab_label.name), "Environment" = module.gitlab_label.stage}
+  tags               = {"Name" = format("%s-gitlab-alb", module.gitlab_label.name), "Environment" = module.gitlab_label.stage}
 }
 
 resource "aws_lb_target_group" "gitlab_alb_tg" {
   port                 = 443
   protocol             = "HTTPS"
   vpc_id               = var.vpc_id
-  tags                 = {"Name" = format("%s-alb-tg", module.gitlab_label.name), "Environment" = module.gitlab_label.stage}
+  tags                 = {"Name" = format("%s-gitlab-alb-tg", module.gitlab_label.name), "Environment" = module.gitlab_label.stage}
   health_check {
     port                = "traffic-port"
     protocol            = "HTTPS"

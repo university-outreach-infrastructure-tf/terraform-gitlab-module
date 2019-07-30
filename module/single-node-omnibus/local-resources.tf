@@ -39,8 +39,6 @@ data "template_file" "gitlab_application_user_data" {
     s3_bucket_user_secret_key       = aws_iam_access_key.s3_access_key.secret
     artifactory_s3_bucket_name      = format("%s-%s",module.gitlab_label.id, var.gitlab_artifactory_s3_bucket_name)
     lfs_s3_bucket_name              = format("%s-%s",module.gitlab_label.id, var.gitlab_lfs_s3_bucket_name)
-    packages_s3_bucket_name         = format("%s-%s",module.gitlab_label.id, var.gitlab_packages_s3_bucket_name)
-    registry_s3_bucket_name         = format("%s-%s",module.gitlab_label.id, var.gitlab_registry_s3_bucket_name)
     backup_s3_bucket_name           = format("%s-%s",module.gitlab_label.id, var.gitlab_backup_s3_bucket_name)
     domain_name                     = var.domain_name
   }

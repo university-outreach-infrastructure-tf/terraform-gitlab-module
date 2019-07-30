@@ -7,6 +7,6 @@ resource "aws_instance" "gitlab_application" {
   user_data                   = data.template_cloudinit_config.config.rendered
   associate_public_ip_address = false
   monitoring                  = true
-  volume_tags                 = { "Name" = format("%s-instance-ebs", module.gitlab_label.name), "Environment" = module.gitlab_label.stage}
-  tags                        = { "Name" = format("%s-instance", module.gitlab_label.name), "Environment" = module.gitlab_label.stage}
+  volume_tags                 = { "Name" = format("%s-gitlab-instance-ebs", module.gitlab_label.name), "Environment" = module.gitlab_label.stage}
+  tags                        = { "Name" = format("%s-gitlab-instance", module.gitlab_label.name), "Environment" = module.gitlab_label.stage}
 }
